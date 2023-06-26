@@ -67,7 +67,7 @@ extension CreateAsyncStream2Macro: AccessorMacro {
       return []
     }
 
-    return ["get { _\(raw: identifier) }"]
+    return ["get { _\(raw: identifier).stream }"]
   }
 }
 
@@ -95,7 +95,7 @@ extension CreateAsyncStream2Macro: PeerMacro {
     }
 
     return [
-      "private let (_\(raw: identifier), _\(raw: identifier)Continuation) = AsyncStream.makeStream(of: \(raw: streamType).self)"
+      "private let _\(raw: identifier) = AsyncStream.makeStream(of: \(raw: streamType).self)"
     ]
   }
 }

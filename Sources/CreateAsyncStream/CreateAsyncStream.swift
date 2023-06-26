@@ -18,7 +18,7 @@ public macro CreateAsyncStream<T>(of: T, named: String)
                  type: "CreateAsyncStreamMacro")
 
 @attached(accessor)
-@attached(peer, names: arbitrary)
+@attached(peer, names: prefixed(_))
 public macro CreateAsyncStream2() = #externalMacro(
   module: "CreateAsyncStreamMacros",
   type: "CreateAsyncStream2Macro")

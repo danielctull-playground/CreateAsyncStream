@@ -32,10 +32,10 @@ final class CreateAsyncStreamTests: XCTestCase {
       expandedSource: """
       public var numbers: AsyncStream<Int> {
           get {
-              _numbers
+              _numbers.stream
           }
       }
-      private let (_numbers, _numbersContinuation) = AsyncStream.makeStream(of: Int.self)
+      private let _numbers = AsyncStream.makeStream(of: Int.self)
       """,
       macros: testMacros
     )
