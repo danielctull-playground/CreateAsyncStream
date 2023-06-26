@@ -67,7 +67,7 @@ extension CreateAsyncStream2Macro: AccessorMacro {
       return []
     }
 
-    return ["_\(raw: identifier)"]
+    return ["get { _\(raw: identifier) }"]
   }
 }
 

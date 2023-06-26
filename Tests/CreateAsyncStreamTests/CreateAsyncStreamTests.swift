@@ -31,7 +31,9 @@ final class CreateAsyncStreamTests: XCTestCase {
       """,
       expandedSource: """
       public var numbers: AsyncStream<Int> {
-          _numbers
+          get {
+              _numbers
+          }
       }
       """,
       macros: testMacros
