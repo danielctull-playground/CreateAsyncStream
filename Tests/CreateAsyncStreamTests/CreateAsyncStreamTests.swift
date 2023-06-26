@@ -35,6 +35,7 @@ final class CreateAsyncStreamTests: XCTestCase {
               _numbers
           }
       }
+      private let (_numbers, _numbersContinuation) = AsyncStream.makeStream(of: Int.self)
       """,
       macros: testMacros
     )

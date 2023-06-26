@@ -71,6 +71,35 @@ extension CreateAsyncStream2Macro: AccessorMacro {
   }
 }
 
+extension CreateAsyncStream2Macro: PeerMacro {
+
+  public static func expansion<
+    Context: MacroExpansionContext,
+    Declaration: DeclSyntaxProtocol
+  >(
+    of node: AttributeSyntax,
+    providingPeersOf declaration: Declaration,
+    in context: Context
+  ) throws -> [DeclSyntax] {
+
+    guard
+      let variable = declaration.as(VariableDeclSyntax.self),
+      let binding = variable.bindings.first,
+      binding.accessor == nil,
+      let identifier = binding.pattern.as(IdentifierPatternSyntax.self),
+      let type = binding.typeAnnotation?.type.as(SimpleTypeIdentifierSyntax.self),
+//      type.name.text == "AsyncStream"
+      let streamType = type.genericArgumentClause?.arguments.first
+    else {
+      return ["ooops"]
+    }
+
+    return [
+      "private let (_\(raw: identifier), _\(raw: identifier)Continuation) = AsyncStream.makeStream(of: \(raw: streamType).self)"
+    ]
+  }
+}
+
 @main
 struct CreateAsyncStreamPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
