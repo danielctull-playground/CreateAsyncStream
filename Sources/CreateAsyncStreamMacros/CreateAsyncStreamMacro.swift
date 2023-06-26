@@ -45,11 +45,37 @@ public struct CreateAsyncStreamMacro: MemberMacro {
 
 }
 
+public struct CreateAsyncStream2Macro: Macro {}
+
+extension CreateAsyncStream2Macro: AccessorMacro {
+
+  public static func expansion<
+    Context: MacroExpansionContext,
+    Declaration: DeclSyntaxProtocol
+  >(
+    of node: AttributeSyntax,
+    providingAccessorsOf declaration: Declaration,
+    in context: Context
+  ) throws -> [AccessorDeclSyntax] {
+
+    guard
+      let variable = declaration.as(VariableDeclSyntax.self),
+      let binding = variable.bindings.first,
+      binding.accessor == nil,
+      let identifier = binding.pattern.as(IdentifierPatternSyntax.self)
+    else {
+      return []
+    }
+
+    return ["_\(raw: identifier)"]
+  }
+}
 
 @main
 struct CreateAsyncStreamPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         CreateAsyncStreamMacro.self,
+        CreateAsyncStream2Macro.self,
     ]
 }
 

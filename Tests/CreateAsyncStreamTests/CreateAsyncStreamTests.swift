@@ -5,6 +5,7 @@ import CreateAsyncStreamMacros
 
 let testMacros: [String: Macro.Type] = [
     "createAsyncStream": CreateAsyncStreamMacro.self,
+    "CreateAsyncStream2": CreateAsyncStream2Macro.self,
 ]
 
 final class CreateAsyncStreamTests: XCTestCase {
@@ -22,5 +23,18 @@ final class CreateAsyncStreamTests: XCTestCase {
         )
     }
 
-
+  func testMacro2() {
+    assertMacroExpansion(
+      """
+      @CreateAsyncStream2
+      public var numbers: AsyncStream<Int>
+      """,
+      expandedSource: """
+      public var numbers: AsyncStream<Int> {
+          _numbers
+      }
+      """,
+      macros: testMacros
+    )
+  }
 }

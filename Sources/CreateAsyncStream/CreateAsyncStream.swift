@@ -16,3 +16,8 @@ public macro CreateAsyncStream<T>(of: T, named: String)
        -> (AsyncStream<T>, AsyncStream<T>.Continuation)
 = #externalMacro(module: "CreateAsyncStreamMacros",
                  type: "CreateAsyncStreamMacro")
+
+@attached(accessor)
+public macro CreateAsyncStream2() = #externalMacro(
+  module: "CreateAsyncStreamMacros",
+  type: "CreateAsyncStream2Macro")

@@ -7,3 +7,10 @@ class Example {
     _numberContinuation.yield(6)
   }
 }
+
+//class Example2 {
+//  init() {}
+//
+//  @CreateAsyncStream2
+//  public var numbers: AsyncStream<Int>
+//}
